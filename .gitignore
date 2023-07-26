@@ -92,3 +92,4 @@ iOSInjectionProject/
 
 FCSDKSample.xcodeproj/
 .DS_Store
+FCSDKSample/Services/Secrets.swift

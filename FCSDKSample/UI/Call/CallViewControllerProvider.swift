@@ -24,4 +24,3 @@ class CallViewControllerProvider: ViewControllerProvider, ServicesProvider {
         return CallViewController(viewModel: viewModel)
     }
 }
-
