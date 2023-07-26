@@ -31,7 +31,6 @@ class CallViewModel {
         }
     }
 
-
     func initialise() async -> Bool {
         await callManager.initialise()
     }

@@ -29,6 +29,16 @@ class DefaultCallManager: NSObject, CallManager {
     @MainActor
     var localVideoView: UIView? {
         get {
+            uc?.phone.previewView
+        }
+        set {
+            uc?.phone.previewView = newValue
+        }
+    }
+
+    @MainActor
+    var remoteVideoView: UIView? {
+        get {
             uc?.phone.remoteView
         }
         set {
@@ -36,13 +46,16 @@ class DefaultCallManager: NSObject, CallManager {
         }
     }
 
-    var remoteVideoView: UIView?
-
     func initialise() async -> Bool {
+        await ACBClientPhone.requestMicrophoneAndCameraPermission(true, video: true)
+
         let request = LoginRequest(username: .username, password: .password)
         guard let response = await networkManager.login(request: request) else { return false }
 
-        let uc = await ACBUC.uc(withConfiguration: response.sessionid, delegate: self)
+        let uc = await ACBUC.uc(withConfiguration: response.sessionid, delegate: nil)
+        await uc.setNetworkReachable(true)
+        uc.acceptAnyCertificate(false)
+        uc.useCookies = false
         await uc.startSession()
 
         self.uc = uc
@@ -54,28 +67,12 @@ class DefaultCallManager: NSObject, CallManager {
             toAddress: .callDestination,
             withAudio: .sendAndReceive,
             video: .sendAndReceive,
-            delegate: self
+            delegate: nil
         ) else {
             return false
-        }
-
-        Task { @MainActor in
-            currentCall.remoteView = remoteVideoView
         }
 
         self.currentCall = currentCall
         return true
     }
-}
-
-extension DefaultCallManager: ACBUCDelegate {
-
-}
-
-extension DefaultCallManager: ACBClientPhoneDelegate {
-
-}
-
-extension DefaultCallManager: ACBClientCallDelegate {
-
 }
