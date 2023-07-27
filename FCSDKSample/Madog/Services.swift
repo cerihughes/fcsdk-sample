@@ -9,15 +9,16 @@ protocol Services {
 }
 
 class DefaultServices: ServiceProvider, Services {
-    let name = serviceProviderName
 
     let networkManager: NetworkManager
     let callManager: CallManager
 
     // MARK: ServiceProvider
-    required init(context: ServiceProviderCreationContext) {
+    override init(context: ServiceProviderCreationContext) {
         networkManager = DefaultNetworkManager()
         callManager = DefaultCallManager(networkManager: networkManager)
+        super.init(context: context)
+        name = serviceProviderName
     }
 }
 
