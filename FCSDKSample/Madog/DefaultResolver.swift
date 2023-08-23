@@ -1,11 +1,11 @@
 import Madog
 
-class DefaultResolver: Resolver {
-    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+class DefaultResolver: Resolver<Navigation> {
+    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         [DefaultServices.init(context:)]
     }
 
-    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<Navigation>] {
+    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<Navigation>] {
         [CallViewControllerProvider.init]
     }
 }
