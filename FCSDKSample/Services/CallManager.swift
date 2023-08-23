@@ -5,7 +5,6 @@
 //  Created by Awen CS on 26/07/2023.
 //
 
-import Foundation
 import FCSDKiOS
 import UIKit
 
@@ -24,7 +23,8 @@ protocol CallManager {
     func endCall() -> Bool
 }
 
-class DefaultCallManager: CallManager {
+class DefaultCallManager: NSObject, CallManager {
+    private let networkManager: NetworkManager
 
     private var uc: ACBUC?
     private var currentCall: ACBClientCall?

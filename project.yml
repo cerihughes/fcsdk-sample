@@ -11,10 +11,10 @@ options:
 packages:
   FCSDKiOS:
     url: https://github.com/cbajapan/swift-fcsdk-ios
-    minorVersion: 4.2.0
+    exactVersion: 4.2.3
   Madog:
     url: https://github.com/cerihughes/Madog
-    majorVersion: 7.0.0
+    majorVersion: 6.0.0
   SnapKit:
     url: https://github.com/SnapKit/SnapKit
     majorVersion: 5.0.0

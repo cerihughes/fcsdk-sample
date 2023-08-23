@@ -40,7 +40,7 @@ class CallView: UIView {
         remoteVideoView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
-        
+
         localVideoView.snp.makeConstraints { make in
             make.size.equalTo(remoteVideoView).dividedBy(4)
             make.trailing.bottom.equalTo(remoteVideoView).inset(24)
@@ -73,11 +73,12 @@ class CallView: UIView {
 }
 
 private extension UIButton {
-    static func createCallButton() -> UIButton {
+    static func create(title: String) -> UIButton {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = .boldSystemFont(ofSize: 24)
-        button.setTitle("Make Call", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.darkGray, for: .disabled)
         return button
     }
 }
